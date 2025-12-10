@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import Searchbar from '../SearchBar/SearchBar';
 import css from "./App.module.css";
 import { Toaster } from 'react-hot-toast';
@@ -16,7 +16,7 @@ function App() {
 const [movies, setMovies] = useState<Movie[]>([]);
 const [isLoading, setIsLoading] = useState(false);
 const [error, setError] = useState(false);
-const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+// const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
 const handleSubmit = async (query : string) =>{
     setMovies([]);
