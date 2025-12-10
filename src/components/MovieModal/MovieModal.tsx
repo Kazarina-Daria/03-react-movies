@@ -1,5 +1,5 @@
-import css form "./MovieModal.module.css";
-import type {Movie} from "../types/movie";
+import css from"./MovieModal.module.css";
+import type {Movie} from "../../types/movie";
 import React, {useEffect} from "react";
 import { createPortal } from "react-dom";
 
@@ -23,19 +23,18 @@ window.addEventListener ("keydown", onEscape);
 return () =>{
 document.body.style.overflow = "auto";
 window.removeEventListener ("keydown", onEscape);
-}
-
- const handleBackdropClick (e : React.MouseEvent){
+};
+    },[onClose]);
+    const handleBackdropClick = (e : React.MouseEvent) => {
     if (e.target === e.currentTarget){
         onClose();
     }
- }
-    },[onClose]);
+    };
     return createPortal (
      
-        <div className={css.backdrop} role="dialog" aria-modal="true">
+        <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleBackdropClick}>
   <div className={css.modal}>
-    <button className={css.closeButton} aria-label="Close modal">
+    <button className={css.closeButton} aria-label="Close modal" onClick={onClose}>
       &times;
     </button>
     <img
