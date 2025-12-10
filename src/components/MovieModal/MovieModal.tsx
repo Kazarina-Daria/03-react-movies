@@ -3,18 +3,19 @@ import type {Movie} from "../../types/movie";
 import React, {useEffect} from "react";
 import { createPortal } from "react-dom";
 
+
 interface MovieModalProps{
     movie : Movie;
     onClose : () => void;
 }
 
 
+const modalRoot = document.querySelector("#modal-root") as HTMLElement;
 
 export default function MovieModal ({movie, onClose}: MovieModalProps){
 
-
     useEffect(() => {
-
+ 
 document.body.style.overflow = "hidden";
 const onEscape= (e: KeyboardEvent) => {
     if (e.key === "Escape")onClose();
@@ -53,7 +54,8 @@ window.removeEventListener ("keydown", onEscape);
       </p>
     </div>
   </div>
-</div>
+</div>,
+modalRoot
 
-    )
-}
+    );
+  }
