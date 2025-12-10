@@ -6,24 +6,25 @@ interface onSubmitProps {
   onSubmit : (movie : string) => Promise<void>;
 }
 
-export  default function Searchbar({onSubmit}: onSubmitProps) {
-
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData (e.currentTarget);
-    const query = (formData.get("query") as string).trim();
+async function submitAction (FormData : FormData, onSubmit : (query: string) => Promise<void>){
+   
+    const query = (FormData.get("query") as string).trim();
+    
     if (query ===""){
  toast.error("Please enter your search query.");
     return;
     }
     onSubmit (query);
 }
+
+
+export  default function Searchbar({onSubmit}: onSubmitProps) {
   return ( 
   
   <header className={styles.header}>
-    {" "}
+
     <div className={styles.container}>
-      {" "}
+  
       <a
         className={styles.link}
         href="https://www.themoviedb.org/"
@@ -32,9 +33,10 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       >
          Powered by TMDB {" "}
       </a>
-      {" "}
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {" "}
+  
+      <form className={styles.form}
+      action ={(formData: FormData) => submitAction(formData,onSubmit)}>
+
         <input
           className={styles.input}
           type="text"
@@ -43,13 +45,13 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
           placeholder="Search movies..."
           autoFocus
         />
-        {" "}
+
         <button className={styles.button} type="submit">
            Search {" "}
         </button>
-        {" "}
+
       </form>
-      {" "}
+
     </div>
   </header>);
 }

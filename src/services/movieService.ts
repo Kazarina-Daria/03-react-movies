@@ -2,8 +2,6 @@ import axios from "axios";
 import type { Movie } from "../types/movie";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-const ACCESS_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
-
 interface FetchMoviesResponse {
   results: Movie[];
   total_results: number;
@@ -12,7 +10,7 @@ interface FetchMoviesResponse {
 
 
 export default async function fetchMovies (query : string) : Promise<Movie[]>{
-
+const ACCESS_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 
  const config = {
     params: {

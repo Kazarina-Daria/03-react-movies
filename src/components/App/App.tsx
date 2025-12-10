@@ -1,4 +1,4 @@
-// import React from 'react';
+
 import Searchbar from '../SearchBar/SearchBar';
 import css from "./App.module.css";
 import { Toaster } from 'react-hot-toast';
@@ -9,14 +9,14 @@ import toast from "react-hot-toast";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-// import MovieModal from "../MovieModal/MovieModal";
+import MovieModal from "../MovieModal/MovieModal";
 
-function App() {
+export default function App() {
   
 const [movies, setMovies] = useState<Movie[]>([]);
 const [isLoading, setIsLoading] = useState(false);
 const [error, setError] = useState(false);
-// const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
 const handleSubmit = async (query : string) =>{
     setMovies([]);
@@ -41,14 +41,6 @@ console.error("error fetching movies", error);
 
 }
 
-const handleSelectMovie = (movie: Movie) => {
-  setSelectedMovie(movie);
-};
-
-// const handleCloseModal = () => {
-//   setSelectedMovie(null);
-// };
-
   return (
     <>
     <Searchbar onSubmit = {handleSubmit} />
@@ -56,11 +48,11 @@ const handleSelectMovie = (movie: Movie) => {
    <div className={css.app}>
    {isLoading && <Loader />}
    {error && <ErrorMessage />}
-   {movies.length > 0 && !isLoading && !error && <MovieGrid movies={movies} onSelect={handleSelectMovie} />}
+   {movies.length > 0 && !isLoading && !error && <MovieGrid movies={movies} onSelect={setSelectedMovie}/>}
    </div>
-   {/* {selectedMovie && <MovieModal movie={selectedMovie} onClose={handleCloseModal} />} */}
+    {selectedMovie && <MovieModal movie={selectedMovie} onClose={(() => setSelectedMovie(null))} />}
     </>
   )
 }
 
-export default App
+
