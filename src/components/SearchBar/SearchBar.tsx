@@ -2,7 +2,7 @@ import styles from "./SearchBar.module.css";
 import toast from "react-hot-toast";
 
 
-interface onSubmitProps {
+interface SearchBarProps {
   onSubmit : (movie : string) => Promise<void>;
 }
 
@@ -18,7 +18,7 @@ async function submitAction (FormData : FormData, onSubmit : (query: string) => 
 }
 
 
-export  default function Searchbar({onSubmit}: onSubmitProps) {
+export  default function SearchBar({onSubmit}: SearchBarProps) {
   return ( 
   
   <header className={styles.header}>
