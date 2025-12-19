@@ -41,9 +41,7 @@ const handleSubmit = async (newQuery : string) =>{
     setPage(1);
     refetch();
 }
-const handlePageChange = (selectedPage: {selected:number})=>{
-  setPage (selectedPage.selected+1);
-}
+
 const movies = data?.results || [];
 const totalPages = data?.total_pages || 0;
   return (
@@ -54,14 +52,17 @@ const totalPages = data?.total_pages || 0;
    {isLoading && <Loader />}
    {isError && <ErrorMessage />}
    {movies.length > 0 && !isLoading && !isError && <MovieGrid movies={movies} onSelect={setSelectedMovie}/>}
-   <ReactPaginate
-   previousLabel={"← Previous"}
-              nextLabel={"Next →"}
-              pageCount={totalPages}
-              onPageChange={handlePageChange}
-              forcePage={page - 1}
-              containerClassName={css.pagination}
-              activeClassName={css.active} />
+   {isSuccess && movies.length > 0 &&<ReactPaginate
+   pageCount={totalPages}
+pageRangeDisplayed={5}
+marginPagesDisplayed={1}
+onPageChange={({ selected }) => setPage(selected + 1)}
+forcePage={page - 1}
+containerClassName={css.pagination}
+activeClassName={css.active}
+nextLabel="→"
+previousLabel="←"
+ />}
    </div>
     {selectedMovie && <MovieModal movie={selectedMovie} onClose={(() => setSelectedMovie(null))} />}
     </>
