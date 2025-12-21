@@ -9,7 +9,7 @@ interface FetchMoviesResponse {
 } 
 
 
-export default async function fetchMovies (query : string, page : number) : Promise<FetchMoviesResponse>{
+export default async function fetchMovies (query : string) : Promise<Movie[]>{
 const ACCESS_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 
  const config = {
@@ -17,12 +17,11 @@ const ACCESS_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
       query,
       include_adult: false,
       language: "en-US",
-      page : page,
     },
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
     },
   };
   const {data} = await axios.get<FetchMoviesResponse>(`${BASE_URL}/search/movie`, config);
-  return data;
+  return data.results;
 }
